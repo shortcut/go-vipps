@@ -1,3 +1,6 @@
+# THIS IS A [FORK](https://github.com/torfjor/go-vipps)
+Please keep this in mind of something seems whonky with regards to paths.
+
 # Go Vipps
 Community maintained Go client library for the [Vipps](https://vipps.no) E-commerce and Recurring payments APIs. Please see Vipps' own documentation on their [Developer page](https://vipps.no/developer/).
 
@@ -8,14 +11,14 @@ Community maintained Go client library for the [Vipps](https://vipps.no) E-comme
 Install go-vipps with:
 
 ```sh
-go get -u github.com/torfjor/go-vipps
+go get -u github.com/shortcut/go-vipps
 ```
 
 Then, import it using:
 
 ``` go
 import (
-    "github.com/torfjor/go-vipps"
+    "github.com/shortcut/go-vipps"
 )
 ```
 
@@ -29,9 +32,9 @@ import (
 	"log"
 	"os"
 	"time"
-	"github.com/torfjor/go-vipps"
-	"github.com/torfjor/go-vipps/auth"
-	"github.com/torfjor/go-vipps/ecom"
+	"github.com/shortcut/go-vipps"
+	"github.com/shortcut/go-vipps/auth"
+	"github.com/shortcut/go-vipps/ecom"
 )
 
 func main() {
