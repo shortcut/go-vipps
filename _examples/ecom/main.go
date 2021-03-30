@@ -4,9 +4,9 @@ import (
 	"bufio"
 	"context"
 	"fmt"
-	"github.com/torfjor/go-vipps"
-	"github.com/torfjor/go-vipps/auth"
-	"github.com/torfjor/go-vipps/ecom"
+	"github.com/shortcut/go-vipps"
+	"github.com/shortcut/go-vipps/auth"
+	"github.com/shortcut/go-vipps/ecom"
 	"log"
 	"os"
 )
@@ -39,9 +39,9 @@ var (
 
 func main() {
 	authClient := auth.NewClient(vipps.EnvironmentTesting, credentials)
-	ecomClient = ecom.NewClient(vipps.ClientConfig{
-		HTTPClient:  authClient,
-		Logger:      log.New(os.Stdout, "", log.LstdFlags),
+	ecomClient = *ecom.NewClient(vipps.ClientConfig{
+		HTTPClient: authClient,
+		//Logger:      log.New(os.Stdout, "", log.LstdFlags),
 		Environment: vipps.EnvironmentTesting,
 	})
 
@@ -54,7 +54,7 @@ func main() {
 	fmt.Printf("Open %s in your web browser and complete the transaction in the Vipps app\n", redirectUrl)
 	fmt.Printf("Press any key to continue.")
 	reader := bufio.NewReader(os.Stdin)
-	reader.ReadByte()
+	_, _ = reader.ReadByte()
 	capturedPayment := capturePayment(orderID, transactionText, amount)
 	fmt.Printf("Captured payment: %+v\n", capturedPayment)
 }
