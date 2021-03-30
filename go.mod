@@ -1,4 +1,4 @@
-module github.com/torfjor/go-vipps
+module github.com/shortcut/go-vipps
 
 go 1.14
 

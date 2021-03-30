@@ -3,8 +3,8 @@ package ecom
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/torfjor/go-vipps"
-	"github.com/torfjor/go-vipps/internal"
+	"github.com/shortcut/go-vipps"
+	"github.com/shortcut/go-vipps/internal"
 	"strings"
 )
 
