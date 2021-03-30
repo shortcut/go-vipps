@@ -10,6 +10,7 @@ import (
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/clientcredentials"
 	"net/http"
+	"time"
 )
 
 const (
@@ -40,11 +41,12 @@ func NewClient(environment vipps.Environment, credentials vipps.Credentials) *ht
 			TokenURL:     baseUrl + tokenEndpoint,
 		},
 		apiSubscriptionKey: credentials.APISubscriptionKey,
-		rt:                 &http.Transport{},
+		rt:                 http.DefaultTransport,
 	}
 
 	tokenClient := &http.Client{
 		Transport: tr,
+		Timeout:   20 * time.Second,
 	}
 
 	ctx := context.WithValue(context.Background(), oauth2.HTTPClient, tokenClient)
