@@ -3,8 +3,8 @@ package recurring
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/shortcut/go-vipps/v0"
-	"github.com/shortcut/go-vipps/v0/internal"
+	"github.com/shortcut/go-vipps"
+	"github.com/shortcut/go-vipps/internal"
 	"strings"
 )
 

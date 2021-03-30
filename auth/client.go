@@ -6,7 +6,7 @@ package auth
 
 import (
 	"context"
-	"github.com/shortcut/go-vipps/v0"
+	"github.com/shortcut/go-vipps"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/clientcredentials"
 	"net/http"
