@@ -1,4 +1,4 @@
-module github.com/shortcut/go-vipps
+module github.com/shortcut/go-vipps/v0
 
 go 1.14
 

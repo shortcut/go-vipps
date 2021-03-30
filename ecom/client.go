@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 	"github.com/go-kit/kit/log"
-	"github.com/shortcut/go-vipps"
-	"github.com/shortcut/go-vipps/internal"
+	"github.com/shortcut/go-vipps/v0"
+	"github.com/shortcut/go-vipps/v0/internal"
 	"net/http"
 	"net/url"
 )

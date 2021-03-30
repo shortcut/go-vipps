@@ -4,9 +4,9 @@ import (
 	"bufio"
 	"context"
 	"fmt"
-	"github.com/shortcut/go-vipps"
-	"github.com/shortcut/go-vipps/auth"
-	"github.com/shortcut/go-vipps/ecom"
+	"github.com/shortcut/go-vipps/v0"
+	"github.com/shortcut/go-vipps/v0/auth"
+	"github.com/shortcut/go-vipps/v0/ecom"
 	"log"
 	"os"
 )
