@@ -1,5 +1,5 @@
 # THIS IS A [FORK](https://github.com/torfjor/go-vipps)
-Please keep this in mind of something seems whonky with regards to paths.
+Please keep this in mind if something seems wonky.
 
 # Go Vipps
 Community maintained Go client library for the [Vipps](https://vipps.no) E-commerce and Recurring payments APIs. Please see Vipps' own documentation on their [Developer page](https://vipps.no/developer/).
