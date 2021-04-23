@@ -1,0 +1,13 @@
+on: [release]
+name: Release
+jobs:
+  release:
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Notify pkg.go.dev of a new release
+        run: make docs
