@@ -14,6 +14,7 @@ const (
 	recurringEndpoint = "recurring/v2/agreements"
 )
 
+// Doer allows for "doing" a HTTP request, and unmarshalling the body to `v`.
 type Doer interface {
 	Do(req *http.Request, v interface{}) error
 	NewRequest(ctx context.Context, method, endpoint string, body interface{}) (*http.Request, error)
@@ -27,7 +28,7 @@ type Client struct {
 
 // NewClient returns a configured Client.
 func NewClient(config vipps.ClientConfig) *Client {
-	var baseUrl string
+	var baseURL string
 	var logger logging.Logger
 
 	if config.HTTPClient == nil {
@@ -35,9 +36,9 @@ func NewClient(config vipps.ClientConfig) *Client {
 	}
 
 	if config.Environment == vipps.EnvironmentTesting {
-		baseUrl = vipps.BaseURLTesting
+		baseURL = vipps.BaseURLTesting
 	} else {
-		baseUrl = vipps.BaseURL
+		baseURL = vipps.BaseURL
 	}
 
 	if config.Logger == nil {
@@ -47,7 +48,7 @@ func NewClient(config vipps.ClientConfig) *Client {
 	}
 
 	return &Client{
-		BaseURL: baseUrl,
+		BaseURL: baseURL,
 		APIClient: &internal.APIClient{
 			L: logger,
 			C: config.HTTPClient,

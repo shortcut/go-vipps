@@ -42,7 +42,7 @@ func HandleShippingDetails(authToken string, cb func(orderId string, req Shippin
 			return
 		}
 		pathBySegments := strings.Split(r.URL.Path, "/")
-		orderId := pathBySegments[len(pathBySegments)-2]
+		orderID := pathBySegments[len(pathBySegments)-2]
 
 		bodyDec := json.NewDecoder(r.Body)
 		defer r.Body.Close()
@@ -54,7 +54,7 @@ func HandleShippingDetails(authToken string, cb func(orderId string, req Shippin
 			return
 		}
 
-		sh, err := cb(orderId, req)
+		sh, err := cb(orderID, req)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return

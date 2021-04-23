@@ -6,11 +6,12 @@ package auth
 
 import (
 	"context"
+	"net/http"
+	"time"
+
 	"github.com/shortcut/go-vipps"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/clientcredentials"
-	"net/http"
-	"time"
 )
 
 const (
@@ -27,18 +28,18 @@ type customTransport struct {
 // headers for authorizing Vipps API clients. JWT tokens are automatically
 // fetched and renewed upon expiry.
 func NewClient(environment vipps.Environment, credentials vipps.Credentials) *http.Client {
-	var baseUrl string
+	var baseURL string
 	if environment == vipps.EnvironmentTesting {
-		baseUrl = vipps.BaseURLTesting
+		baseURL = vipps.BaseURLTesting
 	} else {
-		baseUrl = vipps.BaseURL
+		baseURL = vipps.BaseURL
 	}
 
 	tr := &customTransport{
 		config: clientcredentials.Config{
 			ClientID:     credentials.ClientID,
 			ClientSecret: credentials.ClientSecret,
-			TokenURL:     baseUrl + tokenEndpoint,
+			TokenURL:     baseURL + tokenEndpoint,
 		},
 		apiSubscriptionKey: credentials.APISubscriptionKey,
 		rt:                 http.DefaultTransport,

@@ -3,16 +3,17 @@ package ecom
 import (
 	"encoding/json"
 	"fmt"
+	"strings"
+
 	"github.com/shortcut/go-vipps"
 	"github.com/shortcut/go-vipps/internal"
-	"strings"
 )
 
-// ErrEcomm represents errors returned from the Vipps Ecom API.
-type ErrEcom []EcomAPIError
+// ErrEcom represents errors returned from the Vipps Ecom API.
+type ErrEcom []APIError
 
-// EcomAPIError represents a single error returned from the Vipps Ecom API.
-type EcomAPIError struct {
+// APIError represents a single error returned from the Vipps Ecom API.
+type APIError struct {
 	Group   string `json:"errorGroup"`
 	Message string `json:"errorMessage"`
 	Code    string `json:"errorCode"`
