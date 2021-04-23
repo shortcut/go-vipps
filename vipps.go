@@ -7,6 +7,7 @@ import (
 	"github.com/shortcut/go-vipps/logging"
 )
 
+// Base URLs for Vipps' APIs.
 const (
 	BaseURL        = "https://api.vipps.no"
 	BaseURLTesting = "https://apitest.vipps.no"

@@ -74,6 +74,7 @@ type CreateAgreementCommand struct {
 	ProductDescription  string         `json:"productDescription"`
 }
 
+// AgreementID type-alias to string.
 type AgreementID = string
 
 // AgreementReference represents a reference to an agreement associated with a
@@ -165,6 +166,7 @@ type DueDate struct {
 	time.Time
 }
 
+// MarshalJSON returns the JSON encoding of the DueDate.
 func (d DueDate) MarshalJSON() ([]byte, error) {
 	layout := "2006-01-02"
 	return []byte(`"` + d.Time.Format(layout) + `"`), nil
