@@ -7,6 +7,7 @@ import (
 	"time"
 )
 
+// The endpoint for the Vipps eCommerce-endpoint. NOTE: "ecomm" is not a typo!
 const ecomEndpoint = "ecomm/v2/payments"
 
 // Timestamp is a time.Time with a custom JSON marshaller.
