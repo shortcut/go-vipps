@@ -5,10 +5,11 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/go-kit/kit/log"
 	"io/ioutil"
 	"net/http"
 	"time"
+
+	"github.com/shortcut/go-vipps/logging"
 )
 
 type HTTPError struct {
@@ -21,7 +22,7 @@ func (e HTTPError) Error() string {
 }
 
 type APIClient struct {
-	L log.Logger
+	L logging.Logger
 	C *http.Client
 }
 
@@ -43,9 +44,10 @@ func (c *APIClient) Do(req *http.Request, v interface{}) error {
 	now := time.Now()
 	resp, err := c.C.Do(req)
 	if err != nil {
+		c.L.Error(req.Context(), "error executing Vipps HTTP request", logging.NewArg("method", req.Method), logging.NewArg("url", req.URL), logging.NewArg("durationMS", time.Since(now).Milliseconds()))
 		return err
 	}
-	c.L.Log("method", req.Method, "url", req.URL, "status", resp.StatusCode, "duration", time.Since(now))
+	c.L.Info(req.Context(), "executed Vipps HTTP request", logging.NewArg("method", req.Method), logging.NewArg("url", req.URL), logging.NewArg("durationMS", time.Since(now).Milliseconds()))
 	defer resp.Body.Close()
 	body, _ := ioutil.ReadAll(resp.Body)
 	if resp.StatusCode < http.StatusOK || resp.StatusCode > 299 {

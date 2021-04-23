@@ -3,10 +3,11 @@ package recurring
 import (
 	"context"
 	"fmt"
-	"github.com/go-kit/kit/log"
+	"net/http"
+
 	"github.com/shortcut/go-vipps"
 	"github.com/shortcut/go-vipps/internal"
-	"net/http"
+	"github.com/shortcut/go-vipps/logging"
 )
 
 const (
@@ -27,7 +28,7 @@ type Client struct {
 // NewClient returns a configured Client.
 func NewClient(config vipps.ClientConfig) *Client {
 	var baseUrl string
-	var logger log.Logger
+	var logger logging.Logger
 
 	if config.HTTPClient == nil {
 		panic("config.HTTPClient cannot be nil")
@@ -40,7 +41,7 @@ func NewClient(config vipps.ClientConfig) *Client {
 	}
 
 	if config.Logger == nil {
-		logger = log.NewNopLogger()
+		logger = logging.NewNopLogger()
 	} else {
 		logger = config.Logger
 	}

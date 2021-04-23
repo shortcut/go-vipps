@@ -4,11 +4,13 @@ import (
 	"bufio"
 	"context"
 	"fmt"
+	"log"
+	"os"
+
 	"github.com/shortcut/go-vipps"
 	"github.com/shortcut/go-vipps/auth"
 	"github.com/shortcut/go-vipps/ecom"
-	"log"
-	"os"
+	"github.com/shortcut/go-vipps/logging"
 )
 
 var (
@@ -40,8 +42,8 @@ var (
 func main() {
 	authClient := auth.NewClient(vipps.EnvironmentTesting, credentials)
 	ecomClient = *ecom.NewClient(vipps.ClientConfig{
-		HTTPClient: authClient,
-		//Logger:      log.New(os.Stdout, "", log.LstdFlags),
+		HTTPClient:  authClient,
+		Logger:      logging.NewStdOutLogger(),
 		Environment: vipps.EnvironmentTesting,
 	})
 

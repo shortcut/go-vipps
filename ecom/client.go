@@ -3,11 +3,12 @@ package ecom
 import (
 	"context"
 	"fmt"
-	"github.com/go-kit/kit/log"
-	"github.com/shortcut/go-vipps"
-	"github.com/shortcut/go-vipps/internal"
 	"net/http"
 	"net/url"
+
+	"github.com/shortcut/go-vipps"
+	"github.com/shortcut/go-vipps/internal"
+	"github.com/shortcut/go-vipps/logging"
 )
 
 type Doer interface {
@@ -24,7 +25,7 @@ type Client struct {
 // NewClient returns a configured Client
 func NewClient(config vipps.ClientConfig) *Client {
 	var baseUrl string
-	var logger log.Logger
+	var logger logging.Logger
 
 	if config.HTTPClient == nil {
 		panic("config.HTTPClient cannot be nil")
@@ -37,7 +38,7 @@ func NewClient(config vipps.ClientConfig) *Client {
 	}
 
 	if config.Logger == nil {
-		logger = log.NewNopLogger()
+		logger = logging.NewNopLogger()
 	} else {
 		logger = config.Logger
 	}
