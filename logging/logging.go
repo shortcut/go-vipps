@@ -18,12 +18,12 @@ type Logger interface {
 
 // LogArgument is a simple key-value pair for logging contextual information.
 type LogArgument struct {
-	key   string
-	value interface{}
+	Key   string
+	Value interface{}
 }
 
 // NewArg creates a new LogArgument.
-func NewArg(key string, value interface{}) LogArgument { return LogArgument{key: key, value: value} }
+func NewArg(key string, value interface{}) LogArgument { return LogArgument{Key: key, Value: value} }
 
 type nopLogger struct{}
 
@@ -58,7 +58,7 @@ func (l *stdOutLogger) Error(_ context.Context, message string, arguments ...Log
 func (l *stdOutLogger) log(message string, arguments ...LogArgument) {
 	argStrings := make([]string, len(arguments))
 	for i, a := range arguments {
-		argStrings[i] = fmt.Sprintf("%s: %s", a.key, a.value)
+		argStrings[i] = fmt.Sprintf("%s: %s", a.Key, a.Value)
 	}
 	if len(argStrings) > 0 {
 		message = message + ":"
