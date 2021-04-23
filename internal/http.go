@@ -5,7 +5,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"time"
 
@@ -48,13 +48,18 @@ func (c *APIClient) NewRequest(ctx context.Context, method, endpoint string, bod
 func (c *APIClient) Do(req *http.Request, v interface{}) error {
 	now := time.Now()
 	resp, err := c.C.Do(req)
+	logArguments := []logging.LogArgument{logging.NewArg("method", req.Method), logging.NewArg("url", req.URL), logging.NewArg("durationMS", time.Since(now).Milliseconds())}
 	if err != nil {
-		c.L.Error(req.Context(), "error executing Vipps HTTP request", logging.NewArg("method", req.Method), logging.NewArg("url", req.URL), logging.NewArg("durationMS", time.Since(now).Milliseconds()))
+		c.L.Error(req.Context(), "error executing Vipps HTTP request", logArguments...)
 		return err
 	}
-	c.L.Info(req.Context(), "executed Vipps HTTP request", logging.NewArg("method", req.Method), logging.NewArg("url", req.URL), logging.NewArg("durationMS", time.Since(now).Milliseconds()))
-	defer resp.Body.Close()
-	body, _ := ioutil.ReadAll(resp.Body)
+	c.L.Info(req.Context(), "executed Vipps HTTP request", logArguments...)
+	defer func() { _ = resp.Body.Close() }()
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		c.L.Error(req.Context(), "error reading response-body", logArguments...)
+		return err
+	}
 	if resp.StatusCode < http.StatusOK || resp.StatusCode > 299 {
 		return HTTPError{
 			Body:   body,
@@ -66,6 +71,7 @@ func (c *APIClient) Do(req *http.Request, v interface{}) error {
 	}
 	err = json.Unmarshal(body, v)
 	if err != nil {
+		c.L.Error(req.Context(), "error unmarshalling body", logArguments...)
 		return err
 	}
 	return nil
