@@ -2,10 +2,12 @@ package vipps
 
 import (
 	"fmt"
-	"github.com/go-kit/kit/log"
 	"net/http"
+
+	"github.com/shortcut/go-vipps/logging"
 )
 
+// Base URLs for Vipps' APIs.
 const (
 	BaseURL        = "https://api.vipps.no"
 	BaseURLTesting = "https://apitest.vipps.no"
@@ -41,6 +43,6 @@ type Credentials struct {
 // ClientConfig represents the configuration to use for a Client
 type ClientConfig struct {
 	Environment Environment
-	Logger      log.Logger
+	Logger      logging.Logger
 	HTTPClient  *http.Client
 }

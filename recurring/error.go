@@ -3,18 +3,19 @@ package recurring
 import (
 	"encoding/json"
 	"fmt"
+	"strings"
+
 	"github.com/shortcut/go-vipps"
 	"github.com/shortcut/go-vipps/internal"
-	"strings"
 )
 
 // ErrRecurring represents errors returned from the Vipps Recurring Payments
 // API.
-type ErrRecurring []RecurringAPIError
+type ErrRecurring []APIError
 
-// RecurringAPIError represents a single error returned from the Vipps
+// APIError represents a single error returned from the Vipps
 // Recurring Payments API.
-type RecurringAPIError struct {
+type APIError struct {
 	Field     string `json:"field"`
 	Code      string `json:"code"`
 	Message   string `json:"message"`

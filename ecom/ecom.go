@@ -7,11 +7,13 @@ import (
 	"time"
 )
 
+// The endpoint for the Vipps eCommerce-endpoint. NOTE: "ecomm" is not a typo!
 const ecomEndpoint = "ecomm/v2/payments"
 
 // Timestamp is a time.Time with a custom JSON marshaller.
 type Timestamp time.Time
 
+// MarshalJSON returns the JSON encoding of the Timestamp.
 func (t Timestamp) MarshalJSON() ([]byte, error) {
 	b := fmt.Sprintf("%q", time.Time(t).Format(time.RFC3339))
 	return []byte(b), nil
@@ -269,5 +271,5 @@ type TransactionUpdate struct {
 	ShippingDetails      *ShippingDetails `json:"shippingDetails"`
 	TransactionInfo      *TransactionInfo `json:"transactionInfo"`
 	UserDetails          *UserDetails     `json:"userDetails"`
-	ErrorInfo            *EcomAPIError    `json:"errorInfo"`
+	ErrorInfo            *APIError        `json:"errorInfo"`
 }

@@ -3,13 +3,15 @@ package ecom
 import (
 	"context"
 	"fmt"
-	"github.com/go-kit/kit/log"
-	"github.com/shortcut/go-vipps"
-	"github.com/shortcut/go-vipps/internal"
 	"net/http"
 	"net/url"
+
+	"github.com/shortcut/go-vipps"
+	"github.com/shortcut/go-vipps/internal"
+	"github.com/shortcut/go-vipps/logging"
 )
 
+// Doer allows for "doing" a HTTP request, and unmarshalling the body to `v`.
 type Doer interface {
 	Do(req *http.Request, v interface{}) error
 	NewRequest(ctx context.Context, method, endpoint string, body interface{}) (*http.Request, error)
@@ -23,27 +25,27 @@ type Client struct {
 
 // NewClient returns a configured Client
 func NewClient(config vipps.ClientConfig) *Client {
-	var baseUrl string
-	var logger log.Logger
+	var baseURL string
+	var logger logging.Logger
 
 	if config.HTTPClient == nil {
 		panic("config.HTTPClient cannot be nil")
 	}
 
 	if config.Environment == vipps.EnvironmentTesting {
-		baseUrl = vipps.BaseURLTesting
+		baseURL = vipps.BaseURLTesting
 	} else {
-		baseUrl = vipps.BaseURL
+		baseURL = vipps.BaseURL
 	}
 
 	if config.Logger == nil {
-		logger = log.NewNopLogger()
+		logger = logging.NewNopLogger()
 	} else {
 		logger = config.Logger
 	}
 
 	return &Client{
-		BaseURL: baseUrl,
+		BaseURL: baseURL,
 		APIClient: &internal.APIClient{
 			L: logger,
 			C: config.HTTPClient,

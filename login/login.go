@@ -5,13 +5,16 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/coreos/go-oidc"
-	"golang.org/x/oauth2"
 	"time"
+
+	"github.com/coreos/go-oidc/v3/oidc"
+	"golang.org/x/oauth2"
 )
 
+// IssuerURL is a type-alias for a string.
 type IssuerURL string
 
+// URLs for access-management.
 const (
 	IssuerURLTesting    IssuerURL = "https://apitest.vipps.no/access-management-1.0/access/"
 	IssuerURLProduction IssuerURL = "https://api.vipps.no/access-management-1.0/access/"
@@ -87,16 +90,19 @@ type Claims struct {
 	UserID        string `json:"sub"`
 }
 
+// Date represents a date, without time-information.
 type Date struct {
 	Year  int
 	Month time.Month
 	Day   int
 }
 
+// String turns the date into a string.
 func (d *Date) String() string {
 	return fmt.Sprintf("%d-%d-%d", d.Day, d.Month, d.Year)
 }
 
+// UnmarshalJSON unmarshalls the bytes and stores the date in the receiver.
 func (d *Date) UnmarshalJSON(bytes []byte) error {
 	var s, layout string
 	layout = "2006-01-02"
